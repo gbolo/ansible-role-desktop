@@ -1,2 +1,4 @@
-# ansible-role-desktop
-a simple role fors desktop/latpop stuff
+Ansible Role - Desktop
+=========
+
+A simple role to help configure a desktop or laptop

@@ -1,0 +1,65 @@
+---
+
+# add signing keys
+- name: "add repo keys"
+  apt_key:
+    keyserver: "{{ item.keyserver | default(omit) }}"
+    id: "{{ item.id | default(omit) }}"
+    url: "{{ item.url | default(omit) }}"
+  with_items: "{{ desktop_ubuntu_apt_keys }}"
+  become: true
+
+# add repos
+- name: "setting up repos"
+  apt_repository:
+    repo: "{{ item.repo }}"
+    update_cache: true
+    filename: "{{ item.filename | default(omit) }}"
+  with_items: "{{ desktop_ubuntu_apt_repos }}"
+  become: true
+
+# install packages
+- name: "install packages"
+  apt:
+    name: "{{ item }}"
+    state: "latest"
+  with_items: "{{ desktop_ubuntu_apt_packages }}"
+  become: true
+
+# install from archive
+- name: "install from archive"
+  unarchive:
+    src: "{{ item.src | default(omit) }}"
+    dest: "{{ item.dest | default(omit) }}"
+    remote_src: "{{ item.remote_src | default(omit) }}"
+    creates: "{{ item.creates | default(omit) }}"
+    exclude: "{{ item.exclude | default(omit) }}"
+    extra_opts: "{{ item.extra_opts | default(omit) }}"
+    mode: "{{ item.mode | default(omit) }}"
+    owner: "{{ item.owner | default(omit) }}"
+    group: "{{ item.group | default(desktop_user | default(omit)) }}"
+  with_items: "{{ desktop_install_archives }}"
+  become: true
+
+# install binaries
+
+# create docker config directoy
+- name: "create docker config directory"
+  file:
+    path: "/etc/docker"
+    state: "directory"
+    mode: 0600
+    owner: "root"
+    group: "root"
+  become: true
+
+# configure docker deamon json file
+- name: "configure docker daemon.json"
+  template:
+    src: "daemon.json.j2"
+    dest: "/etc/docker/daemon.json"
+    mode: 0400
+    owner: "root"
+    group: "docker"
+  notify: "restart docker"
+  become: true

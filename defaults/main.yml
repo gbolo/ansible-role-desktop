@@ -1,0 +1,89 @@
+---
+
+desktop_user: "gbolo"
+
+desktop_ubuntu_apt_keys:
+  - keyserver: "ha.pool.sks-keyservers.net"
+    id: "58118E89F3A912897C070ADBF76221572C52609D"
+  - keyserver: "keyserver.ubuntu.com"
+    id: "BBEBDCB318AD50EC6865090613B00F1FD2C19886"
+  - url: "https://dl-ssl.google.com/linux/linux_signing_key.pub"
+  - url: "http://download.virtualbox.org/virtualbox/debian/oracle_vbox_2016.asc"
+
+desktop_ubuntu_apt_repos:
+  - filename: "google-chrome.list"
+    repo: "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main"
+  - filename: "virtualbox.org.list"
+    repo: "deb http://download.virtualbox.org/virtualbox/debian yakkety non-free contrib"
+  - filename: "docker.list"
+    repo: "deb https://apt.dockerproject.org/repo ubuntu-xenial main"
+  - filename: "spotify.list"
+    repo: "deb http://repository.spotify.com stable non-free"
+  # ppas
+  - repo: "ppa:tista/adapta"
+  - repo: "ppa:numix/ppa"
+  - repo: "ppa:ubuntu-mozilla-daily/ppa"
+  - repo: "ppa:webupd8team/atom"
+  - repo: "ppa:webupd8team/terminix"
+  - repo: "ppa:overcoder/hexchat"
+
+desktop_ubuntu_apt_packages:
+  - "vim"
+  - "tree"
+  - "tmux"
+  - "rdesktop"
+  - "remmina"
+  - "wireshark"
+  - "tcpdump"
+  - "bash-completion"
+  - "git"
+  - "vlc"
+  - "vagrant"
+  - "openssl"
+  - "ssh"
+  - "redshift"
+  - "guake"
+  - "default-jdk"
+  - "spotify-client"
+  - "terminix"
+  - "virtualbox-5.1"
+  - "google-chrome-stable"
+  - "chromium-browser"
+  - "firefox-trunk"
+  - "firefox"
+  - "docker-engine"
+  - "hexchat"
+  - "atom"
+
+desktop_atom_addons:
+  - "atom-material-ui"
+  - "atom-material-syntax"
+  - "minimap"
+  - "highlight-selected"
+  - "minimap-highlight-selected"
+
+desktop_install_archives:
+  - name: "terraform"
+    src: "https://releases.hashicorp.com/terraform/0.8.2/terraform_0.8.2_linux_amd64.zip"
+    dest: "/usr/local/bin/"
+    remote_src: true
+    creates: "/usr/local/bin/terraform"
+    mode: 555
+#  - name: "syncthing"
+#    src: "https://github.com/syncthing/syncthing/releases/download/v0.14.16/syncthing-linux-arm64-v0.14.16.tar.gz"
+#    dest: "/usr/local/bin/"
+#    remote_src: true
+#    creates: "/usr/local/bin/syncthing"
+
+desktop_install_bins:
+  - name: "docker-compose"
+    url: "https://github.com/docker/compose/releases/download/1.9.0/docker-compose-Linux-x86_64"
+    dest: "/usr/local/bin/docker-compose"
+    mode: 0555
+
+desktop_docker_config:
+  bip: "172.16.0.1/24"
+  fixed-cidr: "172.16.0.0/24"
+
+desktop_services_enabled:
+  - "ssh"
