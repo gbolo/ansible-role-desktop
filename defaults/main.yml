@@ -1,6 +1,6 @@
 ---
 
-desktop_user: "gbolo"
+desktop_user: "test"
 
 desktop_ubuntu_apt_keys:
   - keyserver: "ha.pool.sks-keyservers.net"
@@ -9,6 +9,7 @@ desktop_ubuntu_apt_keys:
     id: "BBEBDCB318AD50EC6865090613B00F1FD2C19886"
   - url: "https://dl-ssl.google.com/linux/linux_signing_key.pub"
   - url: "http://download.virtualbox.org/virtualbox/debian/oracle_vbox_2016.asc"
+  - url: "https://syncthing.net/release-key.txt"
 
 desktop_ubuntu_apt_repos:
   - filename: "google-chrome.list"
@@ -19,6 +20,8 @@ desktop_ubuntu_apt_repos:
     repo: "deb https://apt.dockerproject.org/repo ubuntu-xenial main"
   - filename: "spotify.list"
     repo: "deb http://repository.spotify.com stable non-free"
+  - filename: "syncthing.list"
+    repo: "deb https://apt.syncthing.net/ syncthing release"
   # ppas
   - repo: "ppa:tista/adapta"
   - repo: "ppa:numix/ppa"
@@ -28,7 +31,10 @@ desktop_ubuntu_apt_repos:
   - repo: "ppa:overcoder/hexchat"
 
 desktop_ubuntu_apt_packages:
+  # from base
   - "vim"
+  - "curl"
+  - "wget"
   - "tree"
   - "tmux"
   - "rdesktop"
@@ -44,16 +50,19 @@ desktop_ubuntu_apt_packages:
   - "redshift"
   - "guake"
   - "default-jdk"
+  - "keepass2"
+  - "firefox"
+  - "chromium-browser"
+  # from extra repos
   - "spotify-client"
   - "terminix"
   - "virtualbox-5.1"
   - "google-chrome-stable"
-  - "chromium-browser"
   - "firefox-trunk"
-  - "firefox"
   - "docker-engine"
   - "hexchat"
   - "atom"
+  - "syncthing"
 
 desktop_atom_addons:
   - "atom-material-ui"
@@ -69,16 +78,15 @@ desktop_install_archives:
     remote_src: true
     creates: "/usr/local/bin/terraform"
     mode: 555
-#  - name: "syncthing"
-#    src: "https://github.com/syncthing/syncthing/releases/download/v0.14.16/syncthing-linux-arm64-v0.14.16.tar.gz"
-#    dest: "/usr/local/bin/"
-#    remote_src: true
-#    creates: "/usr/local/bin/syncthing"
 
 desktop_install_bins:
   - name: "docker-compose"
     url: "https://github.com/docker/compose/releases/download/1.9.0/docker-compose-Linux-x86_64"
     dest: "/usr/local/bin/docker-compose"
+    mode: 0555
+  - name: "virtualbox script"
+    url: "https://raw.githubusercontent.com/gbolo/hal9k/master/script/vboxctl.sh"
+    dest: "/usr/local/bin/vboxctl"
     mode: 0555
 
 desktop_docker_config:
@@ -87,3 +95,4 @@ desktop_docker_config:
 
 desktop_services_enabled:
   - "ssh"
+  - "syncthing@{{ desktop_user }}"

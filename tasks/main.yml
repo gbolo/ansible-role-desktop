@@ -42,6 +42,15 @@
   become: true
 
 # install binaries
+- name: "install from archive"
+  get_url:
+    url: "{{ item.url | default(omit) }}"
+    dest: "{{ item.dest | default(omit) }}"
+    mode: "{{ item.mode | default(omit) }}"
+    owner: "{{ item.owner | default(omit) }}"
+    group: "{{ item.group | default(desktop_user | default(omit)) }}"
+  with_items: "{{ desktop_install_archives }}"
+  become: true
 
 # create docker config directoy
 - name: "create docker config directory"
