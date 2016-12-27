@@ -42,14 +42,14 @@
   become: true
 
 # install binaries
-- name: "install from archive"
+- name: "install bins from url"
   get_url:
     url: "{{ item.url | default(omit) }}"
     dest: "{{ item.dest | default(omit) }}"
     mode: "{{ item.mode | default(omit) }}"
     owner: "{{ item.owner | default(omit) }}"
     group: "{{ item.group | default(desktop_user | default(omit)) }}"
-  with_items: "{{ desktop_install_archives }}"
+  with_items: "{{ desktop_install_bins }}"
   become: true
 
 # create docker config directoy
@@ -71,4 +71,21 @@
     owner: "root"
     group: "docker"
   notify: "restart docker"
+  become: true
+
+# add user to docker group
+- name: "add user {{ desktop_user }} to docker group"
+  user:
+    name: "{{ desktop_user }}"
+    groups: docker
+    append: yes
+  become: true
+
+# enable services
+- name: "enable various services"
+  service:
+    name: "{{ item }}"
+    state: "started"
+    enabled: true
+  with_items: "{{ desktop_services_enabled }}"
   become: true

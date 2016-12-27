@@ -63,6 +63,9 @@ desktop_ubuntu_apt_packages:
   - "hexchat"
   - "atom"
   - "syncthing"
+  - "numix-gtk-theme"
+  - "numix-icon-theme-square"
+  - "numix-icon-theme-circle"
 
 desktop_atom_addons:
   - "atom-material-ui"
@@ -95,4 +98,5 @@ desktop_docker_config:
 
 desktop_services_enabled:
   - "ssh"
+  - "docker"
   - "syncthing@{{ desktop_user }}"
