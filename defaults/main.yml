@@ -86,11 +86,11 @@ desktop_install_bins:
   - name: "docker-compose"
     url: "https://github.com/docker/compose/releases/download/1.9.0/docker-compose-Linux-x86_64"
     dest: "/usr/local/bin/docker-compose"
-    mode: 0555
+    mode: 555
   - name: "virtualbox script"
     url: "https://raw.githubusercontent.com/gbolo/hal9k/master/script/vboxctl.sh"
     dest: "/usr/local/bin/vboxctl"
-    mode: 0555
+    mode: 555
 
 desktop_docker_config:
   bip: "172.16.0.1/24"
