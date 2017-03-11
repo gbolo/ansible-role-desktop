@@ -1,6 +1,6 @@
 ---
 
-desktop_user: "test"
+desktop_user: "gbolo"
 
 desktop_ubuntu_apt_keys:
   - keyserver: "ha.pool.sks-keyservers.net"
@@ -29,10 +29,12 @@ desktop_ubuntu_apt_repos:
   - repo: "ppa:webupd8team/atom"
   - repo: "ppa:webupd8team/terminix"
   - repo: "ppa:overcoder/hexchat"
+  - repo: "ppa:ansible/ansible"
 
 desktop_ubuntu_apt_packages:
   # from base
   - "vim"
+  - "python-pip"
   - "curl"
   - "wget"
   - "tree"
@@ -41,6 +43,8 @@ desktop_ubuntu_apt_packages:
   - "remmina"
   - "wireshark"
   - "tcpdump"
+  - "openvpn"
+  - "network-manager-openvpn-gnome"
   - "bash-completion"
   - "git"
   - "vlc"
@@ -48,11 +52,13 @@ desktop_ubuntu_apt_packages:
   - "openssl"
   - "ssh"
   - "redshift"
+  - "redshift-gtk"
   - "guake"
   - "default-jdk"
   - "keepass2"
   - "firefox"
   - "chromium-browser"
+  - "lm-sensors"
   # from extra repos
   - "spotify-client"
   - "terminix"
@@ -62,10 +68,12 @@ desktop_ubuntu_apt_packages:
   - "docker-engine"
   - "hexchat"
   - "atom"
+  - "ansible"
   - "syncthing"
   - "numix-gtk-theme"
   - "numix-icon-theme-square"
   - "numix-icon-theme-circle"
+  - "adapta-gtk-theme"
 
 desktop_atom_addons:
   - "atom-material-ui"
@@ -74,23 +82,51 @@ desktop_atom_addons:
   - "highlight-selected"
   - "minimap-highlight-selected"
 
+desktop_pip_packages:
+  - "pip"
+  - "docker-compose"
+
 desktop_install_archives:
   - name: "terraform"
-    src: "https://releases.hashicorp.com/terraform/0.8.2/terraform_0.8.2_linux_amd64.zip"
+    src: "https://releases.hashicorp.com/terraform/0.8.8/terraform_0.8.8_linux_amd64.zip"
     dest: "/usr/local/bin/"
     remote_src: true
     creates: "/usr/local/bin/terraform"
     mode: 555
+  - name: "golang"
+    src: "https://storage.googleapis.com/golang/go1.8.linux-amd64.tar.gz"
+    dest: "/opt/goroot"
+    remote_src: true
+    creates: "/opt/goroot/go/bin/go"
+  - name: "gogland IDE"
+    src: "https://download.jetbrains.com/go/gogland-163.12024.32.tar.gz"
+    dest: "/opt/gogland"
+    remote_src: true
+    creates: "/opt/gogland/Gogland-163.12024.32"
+
 
 desktop_install_bins:
-  - name: "docker-compose"
-    url: "https://github.com/docker/compose/releases/download/1.9.0/docker-compose-Linux-x86_64"
-    dest: "/usr/local/bin/docker-compose"
-    mode: 555
   - name: "virtualbox script"
     url: "https://raw.githubusercontent.com/gbolo/hal9k/master/script/vboxctl.sh"
     dest: "/usr/local/bin/vboxctl"
     mode: 555
+#  - name: "docker-compose"
+#    url: "https://github.com/docker/compose/releases/download/1.9.0/docker-compose-Linux-x86_64"
+#    dest: "/usr/local/bin/docker-compose"
+#    mode: 555
+
+desktop_push_files:
+  - name: "golang environment variables"
+    dest: "/etc/profile.d/golang-bin-paths.sh"
+    mode: 555
+    content: |
+      # Golang related
+      export GOROOT=/opt/goroot/go
+      export GOPATH=/opt/gopath
+      PATH=$PATH:$GOROOT/bin:$GOPATH/bin
+  - name: "gopath placeholder"
+    dest: "/opt/gopath/.placeholder"
+    content: "# made by ansible"
 
 desktop_docker_config:
   bip: "172.16.0.1/24"
@@ -100,3 +136,19 @@ desktop_services_enabled:
   - "ssh"
   - "docker"
   - "syncthing@{{ desktop_user }}"
+
+desktop_gnome_extensions:
+  # sound-output-device-chooser
+  - 906
+  # openweather
+  - 750
+  # topicons plus
+  - 1031
+  # freon - temp sensor
+  - 841
+  # alternatetab
+  - 15
+  # user themes
+  - 19
+  # workspace-indicator
+  - 21

@@ -26,6 +26,21 @@
   with_items: "{{ desktop_ubuntu_apt_packages }}"
   become: true
 
+# install packages from pip
+- name: "install pip packages"
+  pip:
+    name: "{{ item }}"
+    state: "latest"
+  with_items: "{{ desktop_pip_packages }}"
+  become: true
+
+- name: "create required directories"
+  file:
+    path: "{{ item.dest }}"
+    state: "directory"
+  with_items: "{{ desktop_install_archives }}"
+  become: true
+
 # install from archive
 - name: "install from archive"
   unarchive:
@@ -50,6 +65,25 @@
     owner: "{{ item.owner | default(omit) }}"
     group: "{{ item.group | default(desktop_user | default(omit)) }}"
   with_items: "{{ desktop_install_bins }}"
+  become: true
+
+# push files
+- name: "create required directories"
+  file:
+    path: "{{ item.dest | dirname }}"
+    state: "directory"
+  with_items: "{{ desktop_push_files }}"
+  become: true
+
+- name: "push various files"
+  copy:
+    dest: "{{ item.dest }}"
+    src: "{{ item.src | default(omit) }}"
+    content: "{{ item.content | default(omit) }}"
+    mode: "{{ item.mode | default(omit) }}"
+    owner: "{{ item.owner | default(omit) }}"
+    group: "{{ item.group | default(desktop_user | default(omit)) }}"
+  with_items: "{{ desktop_push_files }}"
   become: true
 
 # create docker config directoy
