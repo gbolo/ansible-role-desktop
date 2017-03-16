@@ -123,3 +123,20 @@
     enabled: true
   with_items: "{{ desktop_services_enabled }}"
   become: true
+
+# remove packages
+- name: "remove packages"
+  apt:
+    name: "{{ item }}"
+    state: "absent"
+  with_items: "{{ desktop_ubuntu_remove_packages }}"
+  become: true
+
+# disable services
+- name: "disable various services"
+  service:
+    name: "{{ item }}"
+    state: "stopped"
+    enabled: false
+  with_items: "{{ desktop_services_disable }}"
+  become: true
