@@ -33,6 +33,7 @@ desktop_ubuntu_apt_repos:
 
 desktop_ubuntu_apt_packages:
   # from base
+  - "nmap"
   - "vim"
   - "python-pip"
   - "curl"
@@ -137,6 +138,14 @@ desktop_services_enabled:
   - "docker"
   - "syncthing@{{ desktop_user }}"
 
+# remove stuff
+desktop_services_disable:
+  - "apport"
+
+desktop_ubuntu_remove_packages:
+  - "apport"
+
+# gnome
 desktop_gnome_extensions:
   # sound-output-device-chooser
   - 906
@@ -146,9 +155,18 @@ desktop_gnome_extensions:
   - 1031
   # freon - temp sensor
   - 841
+  # add suspend option menu
+  - 826
   # alternatetab
   - 15
   # user themes
   - 19
   # workspace-indicator
   - 21
+  # dash to dock
+  - 307
+
+# firefox
+desktop_firefox_addons:
+  - "https://addons.mozilla.org/en-US/firefox/addon/adblock-plus"
+  - "https://addons.mozilla.org/en-US/firefox/addon/foxyproxy-standard"
