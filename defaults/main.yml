@@ -60,6 +60,7 @@ desktop_ubuntu_apt_packages:
   - "firefox"
   - "chromium-browser"
   - "lm-sensors"
+  - "gparted"
   # from extra repos
   - "spotify-client"
   - "terminix"
