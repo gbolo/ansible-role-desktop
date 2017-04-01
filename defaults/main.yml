@@ -61,6 +61,11 @@ desktop_ubuntu_apt_packages:
   - "chromium-browser"
   - "lm-sensors"
   - "gparted"
+  # spelling/language pakcs for libre office
+  - "hunspell"
+  - "hunspell-en-ca"
+  - "hunspell-en-us"
+  - "mythes-en-us"
   # from extra repos
   - "spotify-client"
   - "terminix"
