@@ -15,7 +15,7 @@ desktop_ubuntu_apt_repos:
   - filename: "google-chrome.list"
     repo: "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main"
   - filename: "virtualbox.org.list"
-    repo: "deb http://download.virtualbox.org/virtualbox/debian yakkety non-free contrib"
+    repo: "deb http://download.virtualbox.org/virtualbox/debian zesty non-free contrib"
   - filename: "docker.list"
     repo: "deb https://apt.dockerproject.org/repo ubuntu-xenial main"
   - filename: "spotify.list"
