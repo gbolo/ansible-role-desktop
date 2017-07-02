@@ -2,6 +2,9 @@
 
 desktop_user: "gbolo"
 
+desktop_go_version: "1.8.3"
+desktop_terraform_version: "0.9.10"
+
 desktop_ubuntu_apt_keys:
   - keyserver: "ha.pool.sks-keyservers.net"
     id: "58118E89F3A912897C070ADBF76221572C52609D"
@@ -33,7 +36,9 @@ desktop_ubuntu_apt_repos:
 
 desktop_ubuntu_apt_packages:
   # from base
+  - "net-tools"
   - "nmap"
+  - "iperf"
   - "vim"
   - "python-pip"
   - "curl"
@@ -61,7 +66,10 @@ desktop_ubuntu_apt_packages:
   - "chromium-browser"
   - "lm-sensors"
   - "gparted"
-  # spelling/language pakcs for libre office
+  - "expect"
+  - "thunderbird"
+  - "seahorse"
+  # spelling/language packs for libre office
   - "hunspell"
   - "hunspell-en-ca"
   - "hunspell-en-us"
@@ -96,13 +104,13 @@ desktop_pip_packages:
 
 desktop_install_archives:
   - name: "terraform"
-    src: "https://releases.hashicorp.com/terraform/0.8.8/terraform_0.8.8_linux_amd64.zip"
+    src: "https://releases.hashicorp.com/terraform/{{ desktop_terraform_version }}/terraform_{{ desktop_terraform_version }}_linux_amd64.zip"
     dest: "/usr/local/bin/"
     remote_src: true
     creates: "/usr/local/bin/terraform"
     mode: 555
   - name: "golang"
-    src: "https://storage.googleapis.com/golang/go1.8.linux-amd64.tar.gz"
+    src: "https://storage.googleapis.com/golang/go{{ desktop_go_version }}.linux-amd64.tar.gz"
     dest: "/opt/goroot"
     remote_src: true
     creates: "/opt/goroot/go/bin/go"
