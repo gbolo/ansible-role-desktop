@@ -121,7 +121,7 @@ desktop_install_archives:
     src: "https://download.jetbrains.com/go/gogland-172.3757.46.tar.gz"
     dest: "/opt/gogland"
     remote_src: true
-    creates: "/opt/gogland/Gogland-163.12024.32"
+    creates: "/opt/gogland/Gogland-172.3757.46"
 
 
 desktop_install_bins:
