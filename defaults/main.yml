@@ -3,7 +3,7 @@
 desktop_user: "gbolo"
 
 desktop_go_version: "1.8.3"
-desktop_terraform_version: "0.9.10"
+desktop_terraform_version: "0.10.3"
 
 desktop_ubuntu_apt_keys:
   - keyserver: "ha.pool.sks-keyservers.net"
@@ -69,6 +69,8 @@ desktop_ubuntu_apt_packages:
   - "expect"
   - "thunderbird"
   - "seahorse"
+  - "python-gnomekeyring"
+  - "browser-plugin-freshplayer-pepperflash"
   # spelling/language packs for libre office
   - "hunspell"
   - "hunspell-en-ca"
@@ -76,7 +78,7 @@ desktop_ubuntu_apt_packages:
   - "mythes-en-us"
   # from extra repos
   - "spotify-client"
-  - "terminix"
+  - "tilix"
   - "virtualbox-5.1"
   - "google-chrome-stable"
   - "firefox-trunk"
@@ -97,6 +99,7 @@ desktop_atom_addons:
   - "highlight-selected"
   - "minimap-highlight-selected"
   - "language-groovy"
+  - "blame"
 
 desktop_pip_packages:
   - "pip"
@@ -115,7 +118,7 @@ desktop_install_archives:
     remote_src: true
     creates: "/opt/goroot/go/bin/go"
   - name: "gogland IDE"
-    src: "https://download.jetbrains.com/go/gogland-163.12024.32.tar.gz"
+    src: "https://download.jetbrains.com/go/gogland-172.3757.46.tar.gz"
     dest: "/opt/gogland"
     remote_src: true
     creates: "/opt/gogland/Gogland-163.12024.32"
