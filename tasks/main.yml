@@ -165,4 +165,9 @@
     gnome_extension_path: /usr/share/gnome-shell/extensions/
   become: yes
   with_items: "{{ desktop_gnome_extensions }}"
-  
+
+# atom packages
+- name: Install Atom Packages
+  apm:
+    name: "{{ item }}"
+  with_items: "{{ desktop_atom_addons }}"
