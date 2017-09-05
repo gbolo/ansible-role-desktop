@@ -159,6 +159,7 @@ desktop_push_files:
 desktop_docker_config:
   bip: "172.16.0.1/24"
   fixed-cidr: "172.16.0.0/24"
+  experimental: true
 
 desktop_services_enabled:
   - "ssh"
