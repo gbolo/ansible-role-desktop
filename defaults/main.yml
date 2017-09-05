@@ -33,6 +33,7 @@ desktop_ubuntu_apt_repos:
   - repo: "ppa:webupd8team/terminix"
   - repo: "ppa:overcoder/hexchat"
   - repo: "ppa:ansible/ansible"
+  - repo: "ppa:remmina-ppa-team/remmina-next"
 
 desktop_ubuntu_apt_packages:
   # from base
@@ -71,6 +72,14 @@ desktop_ubuntu_apt_packages:
   - "seahorse"
   - "python-gnomekeyring"
   - "browser-plugin-freshplayer-pepperflash"
+  - "dos2unix"
+  - "cifs-utils"
+  - "diffutils"
+  - "make"
+  - "rsync"
+  - "whois"
+  - "dnsutils"
+  - "httping"
   # spelling/language packs for libre office
   - "hunspell"
   - "hunspell-en-ca"
