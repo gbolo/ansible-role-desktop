@@ -157,3 +157,12 @@
       if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
           source /etc/profile.d/vte.sh
       fi
+
+# gnome extensions
+- name: Install gnome extensions
+  gnome_shell_extension:
+    id: "{{ item }}"
+    gnome_extension_path: /usr/share/gnome-shell/extensions/
+  become: yes
+  with_items: "{{ desktop_gnome_extensions }}"
+  
