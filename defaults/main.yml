@@ -15,15 +15,15 @@ desktop_ubuntu_apt_keys:
   - url: "https://syncthing.net/release-key.txt"
 
 desktop_ubuntu_apt_repos:
-  - filename: "google-chrome.list"
+  - filename: "google-chrome"
     repo: "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main"
-  - filename: "virtualbox.org.list"
+  - filename: "virtualbox.org"
     repo: "deb http://download.virtualbox.org/virtualbox/debian zesty non-free contrib"
-  - filename: "docker.list"
+  - filename: "docker"
     repo: "deb https://apt.dockerproject.org/repo ubuntu-xenial main"
-  - filename: "spotify.list"
+  - filename: "spotify"
     repo: "deb http://repository.spotify.com stable non-free"
-  - filename: "syncthing.list"
+  - filename: "syncthing"
     repo: "deb https://apt.syncthing.net/ syncthing release"
   # ppas
   - repo: "ppa:tista/adapta"
