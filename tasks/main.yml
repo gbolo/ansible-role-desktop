@@ -140,3 +140,20 @@
     enabled: false
   with_items: "{{ desktop_services_disable }}"
   become: true
+
+# tilix related
+- name: tilix - symlink vte
+  file:
+    src: /etc/profile.d/vte-2.91.sh
+    dest: /etc/profile.d/vte.sh
+    state: link
+  become: true
+
+- name: tilix - source vte in bashrc
+  blockinfile:
+    path: "/home/{{ desktop_user }}/.bashrc"
+    block: |
+      # VTE Configuration\n
+      if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
+          source /etc/profile.d/vte.sh
+      fi
