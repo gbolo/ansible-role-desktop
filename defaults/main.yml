@@ -80,6 +80,7 @@ desktop_ubuntu_apt_packages:
   - "whois"
   - "dnsutils"
   - "httping"
+  - "aria2"
   # spelling/language packs for libre office
   - "hunspell"
   - "hunspell-en-ca"
