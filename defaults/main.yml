@@ -81,6 +81,7 @@ desktop_ubuntu_apt_packages:
   - "dnsutils"
   - "httping"
   - "aria2"
+  - "cifs-utils"
   # spelling/language packs for libre office
   - "hunspell"
   - "hunspell-en-ca"
