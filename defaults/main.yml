@@ -82,6 +82,10 @@ desktop_ubuntu_apt_packages:
   - "dnsutils"
   - "httping"
   - "aria2"
+  - "exfat-fuse"
+  - "exfat-utils"
+  - "p7zip-full"
+  - "p7zip-rar"
   # spelling/language packs for libre office
   - "hunspell"
   - "hunspell-en-ca"
