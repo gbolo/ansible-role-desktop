@@ -2,8 +2,9 @@
 
 desktop_user: "gbolo"
 
-desktop_go_version: "1.8.3"
-desktop_terraform_version: "0.10.3"
+desktop_go_version: "1.11.1"
+desktop_terraform_version: "0.11.8"
+desktop_goland_version: "2018.2.3"
 
 desktop_ubuntu_apt_keys:
   - keyserver: "ha.pool.sks-keyservers.net"
@@ -132,11 +133,11 @@ desktop_install_archives:
     dest: "/opt/goroot"
     remote_src: true
     creates: "/opt/goroot/go/bin/go"
-  - name: "gogland IDE"
-    src: "https://download.jetbrains.com/go/gogland-172.3757.46.tar.gz"
-    dest: "/opt/gogland"
+  - name: "goland IDE"
+    src: "https://download.jetbrains.com/go/goland-{{ desktop_goland_version }}.tar.gz"
+    dest: "/opt/goland"
     remote_src: true
-    creates: "/opt/gogland/Gogland-172.3757.46"
+    creates: "/opt/goland/GoLand-{{ desktop_goland_version }}"
 
 
 desktop_install_bins:
