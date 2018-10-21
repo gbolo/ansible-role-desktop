@@ -26,6 +26,12 @@
   with_items: "{{ desktop_ubuntu_apt_packages }}"
   become: true
 
+# install snap packages with command module for now...
+- name: "install snap packages"
+  command: "snap install {{ item }}"
+  with_items: "{{ desktop_ubuntu_snap_packages }}"
+  become: true
+
 # install packages from pip
 - name: "install pip packages"
   pip:
@@ -66,6 +72,8 @@
     group: "{{ item.group | default(desktop_user | default(omit)) }}"
   with_items: "{{ desktop_install_bins }}"
   become: true
+  tags:
+   - install_bins
 
 # push files
 - name: "create required directories"
@@ -171,3 +179,50 @@
   apm:
     name: "{{ item }}"
   with_items: "{{ desktop_atom_addons }}"
+  tags:
+    - atom
+
+# system tweaks
+- name: kernel tweaks
+  sysctl:
+    name: "{{ item.name }}"
+    value: "{{ item.value | default(omit) }}"
+    state: "{{ item.state | default('present') }}"
+    sysctl_file: "{{ item.sysctl_file | default(omit) }}"
+  with_items: "{{ sysctl_tweaks }}"
+  become: true
+  tags:
+    - sysctl
+
+- name: limits tweaks
+  pam_limits:
+    domain: "{{ item.domain }}"
+    limit_type: "{{ item.limit_type }}"
+    limit_item: "{{ item.limit_item }}"
+    value: "{{ item.value | default(omit) }}"
+    dest: "{{ item.dest | default(omit) }}"
+  with_items: "{{ pam_limits_config }}"
+  become: true
+  tags:
+    - pam_limits
+    - limits
+
+- name: create .ssh directory
+  file:
+    path: "{{ desktop_user_home }}/.ssh"
+    state: directory
+    owner: "{{ desktop_user }}"
+    group: "{{ desktop_user }}"
+    mode: 0700
+  tags:
+    - ssh
+
+- name: push ssh client config
+  copy:
+    dest: "{{ desktop_user_home }}/.ssh/config"
+    content: "{{ ssh_client_config }}"
+    owner: "{{ desktop_user }}"
+    group: "{{ desktop_user }}"
+    mode: 0664
+  tags:
+    - ssh

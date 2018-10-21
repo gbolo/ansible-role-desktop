@@ -1,41 +1,64 @@
 ---
 
 desktop_user: "gbolo"
+desktop_user_home: "/home/{{ desktop_user }}"
 
 desktop_go_version: "1.11.1"
 desktop_terraform_version: "0.11.8"
 desktop_goland_version: "2018.2.3"
 
+sysctl_tweaks:
+  # increase the amount of watches per user
+  # syncthing inotify will be able to handle large amounts of directories
+  - name: fs.inotify.max_user_watches
+    value: 204800
+    state: present
+    sysctl_file: /etc/sysctl.d/90-custom-ansible.conf
+
+pam_limits_config:
+  # increase max file descriptors
+  - domain: "*"
+    limit_type: "-"
+    limit_item: nofile
+    value: 65535
+    dest: /etc/security/limits.d/90-custom-ansible.conf
+
+
+# content for ~/.ssh/config
+ssh_client_config: |
+  IdentityFile ~/.ssh/id_rsa
+  IdentityFile ~/.ssh/id_rsa_sk
+
 desktop_ubuntu_apt_keys:
   - keyserver: "ha.pool.sks-keyservers.net"
     id: "58118E89F3A912897C070ADBF76221572C52609D"
-  - keyserver: "keyserver.ubuntu.com"
-    id: "BBEBDCB318AD50EC6865090613B00F1FD2C19886"
   - url: https://download.docker.com/linux/ubuntu/gpg
     id: 9DC858229FC7DD38854AE2D88D81803C0EBFCD88
   - url: "https://dl-ssl.google.com/linux/linux_signing_key.pub"
   - url: "http://download.virtualbox.org/virtualbox/debian/oracle_vbox_2016.asc"
   - url: "https://syncthing.net/release-key.txt"
+  - url: "https://updates.signal.org/desktop/apt/keys.asc"
 
 desktop_ubuntu_apt_repos:
   - filename: "google-chrome"
     repo: "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main"
   - filename: "virtualbox.org"
-    repo: "deb http://download.virtualbox.org/virtualbox/debian artful non-free contrib"
+    repo: "deb [arch=amd64] http://download.virtualbox.org/virtualbox/debian {{ ansible_distribution_release }} non-free contrib"
   - filename: "docker-ce"
     repo: "deb [arch={{ docker_apt_arch | default('amd64') }}] https://download.docker.com/linux/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} stable"
-  - filename: "spotify"
-    repo: "deb http://repository.spotify.com stable non-free"
   - filename: "syncthing"
     repo: "deb https://apt.syncthing.net/ syncthing release"
+  # currently, signal does not have a bionic repo...
+  - filename: "signal-desktop"
+    repo: "deb [arch=amd64] https://updates.signal.org/desktop/apt xenial main"
   # ppas
   - repo: "ppa:tista/adapta"
   - repo: "ppa:numix/ppa"
   - repo: "ppa:ubuntu-mozilla-daily/ppa"
   - repo: "ppa:webupd8team/atom"
-  - repo: "ppa:overcoder/hexchat"
   - repo: "ppa:ansible/ansible"
   - repo: "ppa:remmina-ppa-team/remmina-next"
+  - repo: "ppa:mozillateam/thunderbird-next"
 
 desktop_ubuntu_apt_packages:
   # from base
@@ -43,6 +66,7 @@ desktop_ubuntu_apt_packages:
   - "nmap"
   - "iperf"
   - "vim"
+  - "jq"
   - "python-pip"
   - "curl"
   - "wget"
@@ -52,6 +76,7 @@ desktop_ubuntu_apt_packages:
   - "remmina"
   - "wireshark"
   - "tcpdump"
+  - "tcpflow"
   - "openvpn"
   - "network-manager-openvpn-gnome"
   - "bash-completion"
@@ -60,8 +85,6 @@ desktop_ubuntu_apt_packages:
   - "vagrant"
   - "openssl"
   - "ssh"
-  - "redshift"
-  - "redshift-gtk"
   - "guake"
   - "default-jdk"
   - "keepass2"
@@ -72,7 +95,7 @@ desktop_ubuntu_apt_packages:
   - "expect"
   - "thunderbird"
   - "seahorse"
-  - "python-gnomekeyring"
+  - "python-keyring"
   - "browser-plugin-freshplayer-pepperflash"
   - "dos2unix"
   - "cifs-utils"
@@ -94,20 +117,25 @@ desktop_ubuntu_apt_packages:
   - "hunspell-en-us"
   - "mythes-en-us"
   # from extra repos
-  - "spotify-client"
   - "tilix"
   - "virtualbox-5.2"
   - "google-chrome-stable"
   - "firefox-trunk"
   - "docker-ce"
-  - "hexchat"
+  - "signal-desktop"
   - "atom"
   - "ansible"
   - "syncthing"
+  - "gnome-tweak-tool"
+  - "gnome-shell-extensions"
   - "numix-gtk-theme"
   - "numix-icon-theme-square"
   - "numix-icon-theme-circle"
   - "adapta-gtk-theme"
+
+desktop_snap_packages:
+  - "slack --classic"
+  - "hexchat"
 
 desktop_atom_addons:
   - "atom-material-ui"
@@ -121,6 +149,7 @@ desktop_atom_addons:
 desktop_pip_packages:
   - "pip"
   - "docker-compose"
+  - "runlike"
 
 desktop_install_archives:
   - name: "terraform"
