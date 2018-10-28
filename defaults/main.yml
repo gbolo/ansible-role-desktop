@@ -2,6 +2,8 @@
 
 desktop_user: "gbolo"
 desktop_user_home: "/home/{{ desktop_user }}"
+desktop_user_add_to_groups:
+  - wireshark
 
 desktop_go_version: "1.11.1"
 desktop_terraform_version: "0.11.8"

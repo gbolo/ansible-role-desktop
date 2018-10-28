@@ -226,3 +226,11 @@
     mode: 0664
   tags:
     - ssh
+
+- name: adding user to additional groups
+  user:
+    name: "{{ desktop_user }}"
+    groups: "{{ desktop_user_add_to_groups }}"
+    append: true
+  tags:
+    - groups
